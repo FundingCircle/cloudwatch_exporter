@@ -28,7 +28,15 @@ jobs:
       - run:
           name: Build image
           command: |
-            docker build -t "${CIRCLE_PROJECT_REPONAME}" --pull .
+            docker build . \
+             --tag "${CIRCLE_PROJECT_REPONAME}" \
+             --pull \
+             --label "org.opencontainers.image.url=https://github.com/${CIRCLE_PROJECT_USERNAME}/${CIRCLE_REPOSITORY_URL}" \
+             --label "org.opencontainers.image.source=${CIRCLE_REPOSITORY_URL}" \
+             --label "org.opencontainers.image.created=$(date --utc +%FT%TZ)" \
+             --label "org.opencontainers.image.revision=${CIRCLE_SHA1}" \
+             --label "org.fundingcircle.image.manager=${ENGINEERING_MANAGER_PLATFORM}"
+
       - run:
           name: Publish image
           command: |
