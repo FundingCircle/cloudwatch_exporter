@@ -44,8 +44,8 @@ jobs:
             fi
 
             if [[ "$CIRCLE_BRANCH" == "master" ]]; then
-              docker tag "${CIRCLE_PROJECT_REPONAME}" "${repository}:latest"
-              docker push --quiet "${repository}:latest"
+              docker tag "${CIRCLE_PROJECT_REPONAME}" "${repository}:upstream"
+              docker push --quiet "${repository}:upstream"
             fi
       - run:
           name: Scan image
