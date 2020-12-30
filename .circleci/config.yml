@@ -51,8 +51,8 @@ jobs:
           name: Scan image
           command: |
             docker run \
-              --env "REPO=quay.io/fundingcircle/$CIRCLE_PROJECT_REPONAME" \
-              --env "REGISTRY=https://quay.io" \
+              --env "REPO=${DOCKER_REGISTRY}/${DOCKER_ORG}/cloudwatch-exporter" \
+              --env "REGISTRY=$DOCKER_REGISTRY" \
               --env DOCKER_USERNAME \
               --env DOCKER_PASSWORD \
               --env "PRISMA_CLOUD_USER=$TWISTCLI_USERNAME" \
