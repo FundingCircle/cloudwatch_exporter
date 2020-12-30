@@ -42,6 +42,11 @@ jobs:
               docker tag "${CIRCLE_PROJECT_REPONAME}" "${repository}:${CIRCLE_TAG}"
               docker push "${repository}:${CIRCLE_TAG}"
             fi
+
+            if [[ "$CIRCLE_BRANCH" == "master" ]]; then
+              docker tag "${CIRCLE_PROJECT_REPONAME}" "${repository}:latest"
+              docker push "${repository}:latest"
+            fi
       - run:
           name: Scan image
           command: |
