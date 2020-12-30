@@ -18,7 +18,7 @@ jobs:
 
   publish_image:
     docker:
-      - image: circleci/openjdk:11-jdk-buster
+      - image: docker:20.10.1-git
 
     steps:
       - checkout
@@ -36,16 +36,16 @@ jobs:
             docker login -u $DOCKER_USERNAME -p $DOCKER_PASSWORD $DOCKER_REGISTRY
 
             docker tag "${CIRCLE_PROJECT_REPONAME}" "${repository}:${CIRCLE_SHA1}"
-            docker push "${repository}:${CIRCLE_SHA1}"
+            docker push --quiet "${repository}:${CIRCLE_SHA1}"
 
             if [[ -n "$CIRCLE_TAG" ]]; then
               docker tag "${CIRCLE_PROJECT_REPONAME}" "${repository}:${CIRCLE_TAG}"
-              docker push "${repository}:${CIRCLE_TAG}"
+              docker push --quiet "${repository}:${CIRCLE_TAG}"
             fi
 
             if [[ "$CIRCLE_BRANCH" == "master" ]]; then
               docker tag "${CIRCLE_PROJECT_REPONAME}" "${repository}:latest"
-              docker push "${repository}:latest"
+              docker push --quiet "${repository}:latest"
             fi
       - run:
           name: Scan image
