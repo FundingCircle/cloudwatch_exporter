@@ -79,3 +79,16 @@ workflows:
           filters:
             tags:
               only: /.*/
+  nightly:
+    jobs:
+      - build
+      - publish_image:
+          context: org-global
+          requires:
+            - build
+    triggers:
+      - schedule:
+          cron: "0 4 * * *"
+          filters:
+            branches:
+              only: master
