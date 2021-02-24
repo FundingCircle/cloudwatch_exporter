@@ -1,0 +1,19 @@
+version: 2
+updates:
+  - package-ecosystem: maven
+    directory: /
+    schedule:
+      interval: daily
+      time: "05:30"
+      timezone: Europe/London
+    pull-request-branch-name:
+      separator: "-"
+
+  - package-ecosystem: docker
+    directory: /
+    schedule:
+      interval: daily
+      time: "05:40"
+      timezone: Europe/London
+    pull-request-branch-name:
+      separator: "-"
